@@ -1,5 +1,5 @@
-#ifndef SYNCRONIZE_H
-#define SYNCRONIZE_H
+#ifndef SYNCHRONIZE_H
+#define SYNCHRONIZE_H
 
 #include <windows.h> 
 
@@ -10,7 +10,7 @@ namespace boolib
     
         //
         // Название:
-        //     synchronize(id)
+        //     synchronize(int)
         //
         // Описание:
         //     Секция c блокировкой между потоками. В блок с
@@ -55,11 +55,12 @@ namespace boolib
         template<unsigned T>
         bool Synchro<T>::isLocked = false;
 
-        #define synchronize(id) for (boolib::sync::Synchro<id>::Local s; s.logic(); )
+        #define synchronize(myint) \
+            for (boolib::sync::Synchro<myint>::Local s; s.logic(); )
 
     }
     // namespace sync
 }
 // namespace boolib
 
-#endif // SYNCRONIZE_H
+#endif // SYNCHRONIZE_H
