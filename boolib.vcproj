@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="boolib/;test/"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -166,19 +167,47 @@
 	</References>
 	<Files>
 		<Filter
-			Name="sync"
+			Name="test"
 			>
 			<File
-				RelativePath=".\sync\synchronize.h"
+				RelativePath=".\test\syncTest.h"
 				>
 			</File>
+			<Filter
+				Name="sync"
+				>
+				<File
+					RelativePath=".\test\sync\synchronizeTest.h"
+					>
+				</File>
+				<File
+					RelativePath=".\test\sync\syncoutTest.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="boolib"
+			>
+			<File
+				RelativePath=".\boolib\sync.h"
+				>
+			</File>
+			<Filter
+				Name="sync"
+				>
+				<File
+					RelativePath=".\boolib\sync\synchronize.h"
+					>
+				</File>
+				<File
+					RelativePath=".\boolib\sync\syncout.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\main.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\sync.h"
 			>
 		</File>
 	</Files>

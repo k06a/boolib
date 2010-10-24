@@ -13,5 +13,13 @@ TEMPLATE = app
 SOURCES += main.cpp
 
 HEADERS += \
-    sync/synchronize.h \
-    sync.h
+    boolib/sync.h \
+    boolib/sync/syncout.h \
+    boolib/sync/synchronize.h \
+    test/syncTest.h \
+    test/sync/syncoutTest.h \
+    test/sync/synchronizeTest.h
+
+INCLUDEPATH += \
+    ./boolib \
+    ./test
