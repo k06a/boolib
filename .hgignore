@@ -3,3 +3,5 @@ relre:_ReSharper
 relre:.ncb$
 relre:.user$
 relre:.suo$
+relre:.sdf$
+relre:.old$
