@@ -173,6 +173,10 @@
 				RelativePath=".\test\syncTest.h"
 				>
 			</File>
+			<File
+				RelativePath=".\test\wrapTest.h"
+				>
+			</File>
 			<Filter
 				Name="sync"
 				>
@@ -185,12 +189,28 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="wrap"
+				>
+				<File
+					RelativePath=".\test\wrap\LengthStreamDecoratorTest.h"
+					>
+				</File>
+				<File
+					RelativePath=".\test\wrap\ReliableStreamDecoratorTest.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="boolib"
 			>
 			<File
 				RelativePath=".\boolib\sync.h"
+				>
+			</File>
+			<File
+				RelativePath=".\boolib\wrap.h"
 				>
 			</File>
 			<Filter
@@ -202,6 +222,18 @@
 				</File>
 				<File
 					RelativePath=".\boolib\sync\syncout.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="wrap"
+				>
+				<File
+					RelativePath=".\boolib\wrap\LengthStreamDecorator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\boolib\wrap\ReliableStreamDecorator.h"
 					>
 				</File>
 			</Filter>

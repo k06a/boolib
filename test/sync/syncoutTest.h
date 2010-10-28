@@ -34,7 +34,7 @@ void syncoutTest()
     for (int i = 0; i < 200; i++)
     {
         const char *temp = data + 16*i;
-        if (memcmp(data + 16*i, "abcdeABCDE12345\n", 16) != 0)
+        if (memcmp(temp, "abcdeABCDE12345\n", 16) != 0)
         {
             std::cout << "syncoutTest() failed" << std::endl;
             break;
