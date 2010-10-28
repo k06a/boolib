@@ -29,17 +29,17 @@ namespace boolib
             syncout_class(T & V) : std::stringstream(), value(V) {}
             ~syncout_class()
             {
-                value << str();
+               value.write(str().c_str(), str().length());
             }
         };
 
         #define syncout \
-            (static_cast<std::stringstream&> \
-            (boolib::sync::syncout_class<std::ostream>(std::cout)))
+            (*static_cast<std::stringstream*> \
+            (&(boolib::sync::syncout_class<std::ostream>(std::cout))))
 
         #define syncout_t(mystream) \
-            (static_cast<std::stringstream&> \
-            (boolib::sync::syncout_class<std::ostream>(mystream)))
+            (*static_cast<std::stringstream*> \
+            (&(boolib::sync::syncout_class<std::ostream>(mystream))))
         
     }
     // namespace sync

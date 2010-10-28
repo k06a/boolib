@@ -15,7 +15,7 @@ DWORD WINAPI syncoutFunc(LPVOID p)
         syncout_t(mystream)
             << "a" << "b" << "c" << "d" << "e"
             << 'A' << 'B' << 'C' << 'D' << 'E'
-            <<  1  <<  2  <<  3  <<  4  <<  5  << ' ';
+            <<  1  <<  2  <<  3  <<  4  <<  5  << std::endl;
     }
     return 0;
 }
@@ -31,15 +31,14 @@ void syncoutTest()
 
     std::string text = stream.str();
     const char * data = text.c_str();
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 200; i++)
     {
-        const char *d = data + 16*i;
-        if (memcmp(data + 16*i, "abcdeABCDE12345 ", 16) != 0)
+        const char *temp = data + 16*i;
+        if (memcmp(data + 16*i, "abcdeABCDE12345\n", 16) != 0)
         {
             std::cout << "syncoutTest() failed" << std::endl;
             break;
         }
-        d = 0;
     }
 }
 
