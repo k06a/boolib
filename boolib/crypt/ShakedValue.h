@@ -9,8 +9,8 @@ namespace boolib
         template<class T>
         class ShakedValue
         {
-            T ** items;
             int itemCount;
+            T ** items;
 
         public:
 
@@ -44,15 +44,15 @@ namespace boolib
                 return currentValue();
             }
 
-            ShakedValue<T> operator +  (T value) { randomItem() += value; return *this; }
-            ShakedValue<T> operator -  (T value) { randomItem() -= value; return *this; }
-            ShakedValue<T> operator += (T value) { randomItem() += value; return *this; }
-            ShakedValue<T> operator -= (T value) { randomItem() -= value; return *this; }
+            const ShakedValue<T> & operator +  (const T value) { randomItem() += value; return *this; }
+            const ShakedValue<T> & operator -  (const T value) { randomItem() -= value; return *this; }
+            const ShakedValue<T> & operator *  (const T value) { return operator = (currentValue() * value); }
+            const ShakedValue<T> & operator /  (const T value) { return operator = (currentValue() / value); }
             
-            ShakedValue<T> operator *  (T value) { return operator = (currentValue() * value); }
-            ShakedValue<T> operator /  (T value) { return operator = (currentValue() / value); }
-            ShakedValue<T> operator *= (T value) { return operator = (currentValue() * value); }
-            ShakedValue<T> operator /= (T value) { return operator = (currentValue() / value); }
+            ShakedValue<T> & operator += (const T value) { randomItem() += value; return *this; }
+            ShakedValue<T> & operator -= (const T value) { randomItem() -= value; return *this; }
+            ShakedValue<T> & operator *= (const T value) { return operator = (currentValue() * value); }
+            ShakedValue<T> & operator /= (const T value) { return operator = (currentValue() / value); }
 
             const ShakedValue<T> & operator ++ (int a) { randomItem()++; return *this; }
             const ShakedValue<T> & operator -- (int a) { randomItem()--; return *this; }
