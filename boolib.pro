@@ -18,7 +18,11 @@ HEADERS += \
     boolib/sync/synchronize.h \
     boolib/wrap.h \
     boolib/wrap/ReliableStreamDecorator.h \
-    boolib/wrap/LengthStreamDecorator.h
+    boolib/wrap/LengthStreamDecorator.h \
+    boolib/crypt.h \
+    boolib/crypt/ShakedValue.h \
+    test/cryptTest.h \
+    test/crypt/ShakedValueTest.h
 
 HEADERS += \
     test/syncTest.h \

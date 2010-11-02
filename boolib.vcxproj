@@ -90,6 +90,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="boolib\crypt.h" />
+    <ClInclude Include="boolib\crypt\ShakedValue.h" />
+    <ClInclude Include="test\cryptTest.h" />
+    <ClInclude Include="test\crypt\ShakedValueTest.h" />
     <ClInclude Include="test\syncTest.h" />
     <ClInclude Include="test\wrapTest.h" />
     <ClInclude Include="test\sync\synchronizeTest.h" />

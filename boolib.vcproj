@@ -170,6 +170,10 @@
 			Name="test"
 			>
 			<File
+				RelativePath=".\test\cryptTest.h"
+				>
+			</File>
+			<File
 				RelativePath=".\test\syncTest.h"
 				>
 			</File>
@@ -201,10 +205,22 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="crypt"
+				>
+				<File
+					RelativePath=".\test\crypt\ShakedValueTest.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="boolib"
 			>
+			<File
+				RelativePath=".\boolib\crypt.h"
+				>
+			</File>
 			<File
 				RelativePath=".\boolib\sync.h"
 				>
@@ -234,6 +250,14 @@
 				</File>
 				<File
 					RelativePath=".\boolib\wrap\ReliableStreamDecorator.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="crypt"
+				>
+				<File
+					RelativePath=".\boolib\crypt\ShakedValue.h"
 					>
 				</File>
 			</Filter>

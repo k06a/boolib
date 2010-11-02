@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="test\syncTest.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="test\wrapTest.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\sync.h">
+      <Filter>boolib</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\wrap.h">
+      <Filter>boolib</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\crypt.h">
+      <Filter>boolib</Filter>
+    </ClInclude>
+    <ClInclude Include="test\cryptTest.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\wrap\ReliableStreamDecorator.h">
+      <Filter>boolib\wrap</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\wrap\LengthStreamDecorator.h">
+      <Filter>boolib\wrap</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\crypt\ShakedValue.h">
+      <Filter>boolib\crypt</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\sync\synchronize.h">
+      <Filter>boolib\sync</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\sync\syncout.h">
+      <Filter>boolib\sync</Filter>
+    </ClInclude>
+    <ClInclude Include="test\crypt\ShakedValueTest.h">
+      <Filter>test\crypt</Filter>
+    </ClInclude>
+    <ClInclude Include="test\wrap\LengthStreamDecoratorTest.h">
+      <Filter>test\wrap</Filter>
+    </ClInclude>
+    <ClInclude Include="test\wrap\ReliableStreamDecoratorTest.h">
+      <Filter>test\wrap</Filter>
+    </ClInclude>
+    <ClInclude Include="test\sync\synchronizeTest.h">
+      <Filter>test\sync</Filter>
+    </ClInclude>
+    <ClInclude Include="test\sync\syncoutTest.h">
+      <Filter>test\sync</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="boolib">
+      <UniqueIdentifier>{2d05f912-512a-45f3-865e-2b33fd923ffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{4b5ab9d5-2c49-48ae-9a5a-d4a838918c8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boolib\crypt">
+      <UniqueIdentifier>{ef5a18d1-2f00-4c4a-96ca-c796ae0d36f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boolib\sync">
+      <UniqueIdentifier>{767adeff-46b4-42e7-ace9-ae3f9fc6e78e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boolib\wrap">
+      <UniqueIdentifier>{7e2b9589-2a80-4d6a-ab83-268aebeabb6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\crypt">
+      <UniqueIdentifier>{265c073d-cce6-4e6a-beba-a8a3f3690857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\wrap">
+      <UniqueIdentifier>{5979b5d9-4bf2-4d84-a6d6-2ea84f08db56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\sync">
+      <UniqueIdentifier>{6cac7b89-d1cd-438c-b9e9-c61083ec927b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
