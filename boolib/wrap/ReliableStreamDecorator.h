@@ -45,7 +45,7 @@ public:
     {
     }
 
-    /// Послать из буфера ровно size байт
+    // Write exactly (size) bytes from (buffer)
     virtual size_t RSD_Write(char * buffer, IN size_t size)
     {
         size_t needToSend = size;
@@ -58,7 +58,7 @@ public:
         return size - needToSend;
     }
 
-    /// Прочитать в буфер ровно count байт 
+    // Read exactly (count) bytes into (buffer)
     virtual size_t RSD_Read(char * buffer, IN size_t count)
     {
         size_t needToRecv = count;

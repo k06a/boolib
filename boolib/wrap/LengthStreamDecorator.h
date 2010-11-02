@@ -45,7 +45,7 @@ public:
     {
     }
 
-    /// Послать из буфера ровно size байт
+    // Write exactly (size) bytes from (buffer)
     virtual size_t LSD_Write(char * buffer, size_t size)
     {
         stream->LSD_Write((char*)&size, sizeof(size));
@@ -53,7 +53,7 @@ public:
         return size;
     }
 
-    /// Прочитать в буфер ровно count байт
+    // Read exactly (count) bytes into (buffer)
     virtual size_t LSD_Read(char * buffer, size_t count)
     {
         size_t realCount;

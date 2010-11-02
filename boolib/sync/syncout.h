@@ -10,11 +10,11 @@ namespace boolib
     {
 
         //
-        // Название:
+        // Name:
         //     syncout, syncout_t(stream)
         //
-        // Описание:
-        //     Неразрываемый вывод в поток вывода.
+        // Description:
+        //     Unbreakable writing to the output straem.
         //
         // Использование:
         //     syncout << "Hello" << ' ' << "World";

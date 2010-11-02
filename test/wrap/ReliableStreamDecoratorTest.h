@@ -37,7 +37,7 @@ namespace ReliableStreamDecoratorTestSpace
 
         virtual ~StringStream() {}
 
-        // Записывает лишь половину данных
+        // It writes only a half of (size) per call
         virtual size_t Send(char * buffer, size_t size)
         {
             size_t i;
@@ -46,7 +46,7 @@ namespace ReliableStreamDecoratorTestSpace
             return i;
         }
 
-        // Считывает лишь половину данных
+        // It reads only a half of (size) per call
         virtual size_t Recv(char * buffer, size_t size)
         {
             size_t i;

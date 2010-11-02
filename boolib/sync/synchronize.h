@@ -9,17 +9,17 @@ namespace boolib
     {
     
         //
-        // Название:
+        // Name:
         //     synchronize(int)
         //
-        // Описание:
-        //     Секция c блокировкой между потоками. В блок с
-        //     одним id одновременно может зайти только один поток.
+        // Description:
+        //     Only one thread can get inside
+        //     this block at the same time.
         //
-        // Использование:
+        // Usage:
         //     synchronize(55)
         //     {
-        //        // защищённый блок кода
+        //        // protected block
         //     }
         //
 

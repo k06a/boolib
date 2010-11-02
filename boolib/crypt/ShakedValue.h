@@ -1,7 +1,5 @@
-
-#include <iostream>
-
-using namespace std;
+#ifndef SHAKEDVALUE_H
+#define SHAKEDVALUE_H
 
 namespace boolib
 {
@@ -113,3 +111,5 @@ namespace boolib
     // namespace crypt
 }
 // namespace boolib
+
+#endif // SHAKEDVALUE_H
