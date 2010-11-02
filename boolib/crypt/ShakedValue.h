@@ -56,8 +56,8 @@ namespace boolib
 
             const ShakedValue<T> & operator ++ (int a) { randomItem()++; return *this; }
             const ShakedValue<T> & operator -- (int a) { randomItem()--; return *this; }
-            ShakedValue<T> & operator ++ () { randomItem()++; return *this; }
-            ShakedValue<T> & operator -- () { randomItem()--; return *this; }
+            ShakedValue<T> & operator ++ () { ++randomItem(); return *this; }
+            ShakedValue<T> & operator -- () { --randomItem(); return *this; }
 
             // Ìועמהû
 
