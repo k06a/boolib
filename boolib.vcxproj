@@ -92,9 +92,13 @@
   <ItemGroup>
     <ClInclude Include="boolib\crypt.h" />
     <ClInclude Include="boolib\crypt\ShakedValue.h" />
+    <ClInclude Include="boolib\util.h" />
+    <ClInclude Include="boolib\util\LittleBigEndian.h" />
     <ClInclude Include="test\cryptTest.h" />
     <ClInclude Include="test\crypt\ShakedValueTest.h" />
     <ClInclude Include="test\syncTest.h" />
+    <ClInclude Include="test\utilTest.h" />
+    <ClInclude Include="test\util\LitteBigEndianTest.h" />
     <ClInclude Include="test\wrapTest.h" />
     <ClInclude Include="test\sync\synchronizeTest.h" />
     <ClInclude Include="test\sync\syncoutTest.h" />

@@ -13,24 +13,29 @@ TEMPLATE = app
 SOURCES += main.cpp
 
 HEADERS += \
+    boolib/crypt.h \
+    boolib/crypt/ShakedValue.h \
     boolib/sync.h \
     boolib/sync/syncout.h \
     boolib/sync/synchronize.h \
+    boolib/util.h \
+    boolib/util/LittleBigEndian.h \
     boolib/wrap.h \
     boolib/wrap/ReliableStreamDecorator.h \
-    boolib/wrap/LengthStreamDecorator.h \
-    boolib/crypt.h \
-    boolib/crypt/ShakedValue.h \
-    test/cryptTest.h \
-    test/crypt/ShakedValueTest.h
+    boolib/wrap/LengthStreamDecorator.h
 
 HEADERS += \
+    test/cryptTest.h \
+    test/crypt/ShakedValueTest.h \
     test/syncTest.h \
     test/sync/syncoutTest.h \
     test/sync/synchronizeTest.h \
+    test/utilTest.h \
+    test/util/LitteBigEndianTest.h \
     test/wrapTest.h \
     test/wrap/ReliableStreamDecoratorTest.h \
     test/wrap/LengthStreamDecoratorTest.h
+
 
 INCLUDEPATH += \
     ./boolib \

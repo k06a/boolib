@@ -1,6 +1,8 @@
 #ifndef SHAKEDVALUE_H
 #define SHAKEDVALUE_H
 
+#include <stdlib.h>
+
 namespace boolib
 {
     namespace crypt

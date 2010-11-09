@@ -178,6 +178,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\utilTest.h"
+				>
+			</File>
+			<File
 				RelativePath=".\test\wrapTest.h"
 				>
 			</File>
@@ -213,6 +217,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="util"
+				>
+				<File
+					RelativePath=".\test\util\LitteBigEndianTest.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="boolib"
@@ -223,6 +235,10 @@
 			</File>
 			<File
 				RelativePath=".\boolib\sync.h"
+				>
+			</File>
+			<File
+				RelativePath=".\boolib\util.h"
 				>
 			</File>
 			<File
@@ -258,6 +274,14 @@
 				>
 				<File
 					RelativePath=".\boolib\crypt\ShakedValue.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="util"
+				>
+				<File
+					RelativePath=".\boolib\util\LittleBigEndian.h"
 					>
 				</File>
 			</Filter>

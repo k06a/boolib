@@ -52,6 +52,18 @@
     <ClInclude Include="test\sync\syncoutTest.h">
       <Filter>test\sync</Filter>
     </ClInclude>
+    <ClInclude Include="boolib\util.h">
+      <Filter>boolib</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\util\LittleBigEndian.h">
+      <Filter>boolib\util</Filter>
+    </ClInclude>
+    <ClInclude Include="test\utilTest.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="test\util\LitteBigEndianTest.h">
+      <Filter>test\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="boolib">
@@ -77,6 +89,12 @@
     </Filter>
     <Filter Include="test\sync">
       <UniqueIdentifier>{6cac7b89-d1cd-438c-b9e9-c61083ec927b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boolib\util">
+      <UniqueIdentifier>{176ebabe-9eb0-4050-85c3-d7235ae35fef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\util">
+      <UniqueIdentifier>{e916c569-c183-4cef-ba77-e2aa09f6d53a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
