@@ -56,27 +56,27 @@ namespace boolib
         struct ipv4_header : public ip_header_abstract<ipv4_header>
         {
             // ---------------- Fisrt DWORD ----------------
-	        
+            
             unsigned char version:4;
-	        unsigned char hdr_len:4;
+            unsigned char hdr_len:4;
 
-	        struct {
-		        unsigned char dscp:6;
-		        unsigned char ect:1;
-		        unsigned char ce:1;
+            struct {
+                unsigned char dscp:6;
+                unsigned char ect:1;
+                unsigned char ce:1;
             } dsfield;
 
             boolib::util::BigEndian<unsigned short> totalLength;
 
             // ---------------- Second DWORD ----------------
-	        
-	        unsigned short identificator;
+            
+            unsigned short identificator;
 
-	        unsigned short flag_rb:1;
-		    unsigned short flag_df:1;
-		    unsigned short flag_mf:1;
+            unsigned short flag_rb:1;
+            unsigned short flag_df:1;
+            unsigned short flag_mf:1;
         private:
-	        unsigned short frag_offset:13;
+            unsigned short frag_offset:13;
         public:
             unsigned short fragmentOffset() {
                 return (frag_offset << 3);
@@ -86,17 +86,17 @@ namespace boolib
             }
 
             // ---------------- Third DWORD ----------------
-	        
-	        unsigned  char ttl;
-	        unsigned  char proto;
-	        unsigned short checksum;
+            
+            unsigned  char ttl;
+            unsigned  char proto;
+            unsigned short checksum;
 
             // ---------------- Fourth DWORD ----------------
-	        
+            
             mutable ipv4_address src;
 
             // ---------------- Fifth DWORD ----------------
-	        
+            
             mutable ipv4_address dst;
             
             // ----------------------------------------------

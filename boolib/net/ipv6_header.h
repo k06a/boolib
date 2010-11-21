@@ -61,20 +61,20 @@ namespace boolib
         struct ipv6_header : public ip_header_abstract<ipv6_header>
         {
             // ---------------- Fisrt DWORD ----------------
-	        
+            
             unsigned  int version:4;
-	        unsigned  int trafficClass:8;
+            unsigned  int trafficClass:8;
             unsigned  int flowLabel:20;
 
             // ---------------- Second DWORD ----------------
-	        
+            
             unsigned short payloadLength;
-	        unsigned  char nextHeader;
+            unsigned  char nextHeader;
             unsigned  char hopLimit;
 
             // ----------------  3-10 DWORDS ----------------
 
-	        mutable ipv6_address src;
+            mutable ipv6_address src;
             mutable ipv6_address dst;
             
             // ----------------------------------------------
