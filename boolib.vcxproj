@@ -92,10 +92,18 @@
   <ItemGroup>
     <ClInclude Include="boolib\crypt.h" />
     <ClInclude Include="boolib\crypt\ShakedValue.h" />
+    <ClInclude Include="boolib\net.h" />
+    <ClInclude Include="boolib\net\ipv4_header.h" />
+    <ClInclude Include="boolib\net\ipv6_header.h" />
+    <ClInclude Include="boolib\net\ip_header.h" />
     <ClInclude Include="boolib\util.h" />
     <ClInclude Include="boolib\util\LittleBigEndian.h" />
     <ClInclude Include="test\cryptTest.h" />
     <ClInclude Include="test\crypt\ShakedValueTest.h" />
+    <ClInclude Include="test\netTest.h" />
+    <ClInclude Include="test\net\ipv4_headerTest.h" />
+    <ClInclude Include="test\net\ipv6_headerTest.h" />
+    <ClInclude Include="test\net\ip_headerTest.h" />
     <ClInclude Include="test\syncTest.h" />
     <ClInclude Include="test\utilTest.h" />
     <ClInclude Include="test\util\LitteBigEndianTest.h" />

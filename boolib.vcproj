@@ -174,6 +174,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test\netTest.h"
+				>
+			</File>
+			<File
 				RelativePath=".\test\syncTest.h"
 				>
 			</File>
@@ -225,12 +229,32 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="net"
+				>
+				<File
+					RelativePath=".\test\net\ip_headerTest.h"
+					>
+				</File>
+				<File
+					RelativePath=".\test\net\ipv4_headerTest.h"
+					>
+				</File>
+				<File
+					RelativePath=".\test\net\ipv6_headerTest.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="boolib"
 			>
 			<File
 				RelativePath=".\boolib\crypt.h"
+				>
+			</File>
+			<File
+				RelativePath=".\boolib\net.h"
 				>
 			</File>
 			<File
@@ -282,6 +306,22 @@
 				>
 				<File
 					RelativePath=".\boolib\util\LittleBigEndian.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="net"
+				>
+				<File
+					RelativePath=".\boolib\net\ip_header.h"
+					>
+				</File>
+				<File
+					RelativePath=".\boolib\net\ipv4_header.h"
+					>
+				</File>
+				<File
+					RelativePath=".\boolib\net\ipv6_header.h"
 					>
 				</File>
 			</Filter>

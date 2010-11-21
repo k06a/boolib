@@ -15,6 +15,10 @@ SOURCES += main.cpp
 HEADERS += \
     boolib/crypt.h \
     boolib/crypt/ShakedValue.h \
+    boolib/net.h \
+    boolib/net/ip_header.h \
+    boolib/net/ipv4_header.h \
+    boolib/net/ipv6_header.h \
     boolib/sync.h \
     boolib/sync/syncout.h \
     boolib/sync/synchronize.h \
@@ -27,6 +31,10 @@ HEADERS += \
 HEADERS += \
     test/cryptTest.h \
     test/crypt/ShakedValueTest.h \
+    test/netTest.h \
+    test/net/ip_headerTest.h \
+    test/net/ipv4_headerTest.h \
+    test/net/ipv6_headerTest.h \
     test/syncTest.h \
     test/sync/syncoutTest.h \
     test/sync/synchronizeTest.h \

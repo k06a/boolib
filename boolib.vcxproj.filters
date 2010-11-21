@@ -64,6 +64,30 @@
     <ClInclude Include="test\util\LitteBigEndianTest.h">
       <Filter>test\util</Filter>
     </ClInclude>
+    <ClInclude Include="boolib\net\ip_header.h">
+      <Filter>boolib\net</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\net\ipv4_header.h">
+      <Filter>boolib\net</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\net\ipv6_header.h">
+      <Filter>boolib\net</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\net.h">
+      <Filter>boolib</Filter>
+    </ClInclude>
+    <ClInclude Include="test\netTest.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="test\net\ip_headerTest.h">
+      <Filter>test\net</Filter>
+    </ClInclude>
+    <ClInclude Include="test\net\ipv4_headerTest.h">
+      <Filter>test\net</Filter>
+    </ClInclude>
+    <ClInclude Include="test\net\ipv6_headerTest.h">
+      <Filter>test\net</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="boolib">
@@ -95,6 +119,12 @@
     </Filter>
     <Filter Include="test\util">
       <UniqueIdentifier>{e916c569-c183-4cef-ba77-e2aa09f6d53a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\net">
+      <UniqueIdentifier>{b7368a77-8737-4ff8-b37e-1d3efb4e4f46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boolib\net">
+      <UniqueIdentifier>{80301c2d-2214-48ae-909f-ee75893b9c43}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
