@@ -5,9 +5,10 @@ namespace boolib
 {
     namespace util
     {
-
+        
         // Little-Endian template
 
+        #pragma pack(push,1)
         template<typename T>
         class LittleEndian
         {
@@ -36,9 +37,11 @@ namespace boolib
                 return t;
             }
         };
+        #pragma pack(pop)
 
         // Big-Endian template
 
+        #pragma pack(push,1)
         template<typename T>
         class BigEndian
         {
@@ -67,6 +70,7 @@ namespace boolib
                 return t;
             }
         };
+        #pragma pack(pop)
 
     }
     // namespace util
