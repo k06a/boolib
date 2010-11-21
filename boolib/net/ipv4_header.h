@@ -22,12 +22,12 @@ namespace boolib
                 unsigned  char bytes[4];
             };
 
-            virtual int size()
+            virtual int size() const
             {
                 return 4;
             }
 
-            virtual int version()
+            virtual int version() const
             {
                 return 4;
             }
@@ -93,11 +93,11 @@ namespace boolib
 
             // ---------------- Fourth DWORD ----------------
 	        
-            ipv4_address src;
+            mutable ipv4_address src;
 
             // ---------------- Fifth DWORD ----------------
 	        
-            ipv4_address dst;
+            mutable ipv4_address dst;
             
             // ----------------------------------------------
 
@@ -107,17 +107,17 @@ namespace boolib
             {
             }
 
-            virtual int size()
+            virtual int size() const
             {
                 return hdr_len*4;
             }
 
-            virtual ip_address & src_ip()
+            virtual ip_address & src_ip() const
             {
                 return reinterpret_cast<ip_address&>(src);
             }
 
-            virtual ip_address & dst_ip()
+            virtual ip_address & dst_ip() const
             {
                 return reinterpret_cast<ip_address&>(dst);
             }

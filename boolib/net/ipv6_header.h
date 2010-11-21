@@ -29,12 +29,12 @@ namespace boolib
                 unsigned    char bytes[16];
             };
 
-            virtual int size()
+            virtual int size() const
             {
                 return 16;
             }
 
-            virtual int version()
+            virtual int version() const
             {
                 return 6;
             }
@@ -74,22 +74,22 @@ namespace boolib
 
             // ----------------  3-10 DWORDS ----------------
 
-	        ipv6_address src;
-            ipv6_address dst;
+	        mutable ipv6_address src;
+            mutable ipv6_address dst;
             
             // ----------------------------------------------
 
-            virtual int size()
+            virtual int size() const
             {
                 return 40;
             }
 
-            virtual ip_address & src_ip()
+            virtual ip_address & src_ip() const
             {
                 return reinterpret_cast<ip_address&>(src);
             }
 
-            virtual ip_address & dst_ip()
+            virtual ip_address & dst_ip() const
             {
                 return reinterpret_cast<ip_address&>(dst);
             }
