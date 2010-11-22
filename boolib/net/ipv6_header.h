@@ -42,18 +42,18 @@ namespace boolib
 
             // ----------------  3-10 DWORDS ----------------
 
-            mutable ipv6_data src;
+            mutable ipv6_data src_data;
             
             virtual ip_address src_ip() const
             {
-                return ip_address(ip_address::IPv6, &src);
+                return ip_address(ip_address::IPv6, &src_data);
             }
 
-            mutable ipv6_data dst;
+            mutable ipv6_data dst_data;
             
             virtual ip_address dst_ip() const
             {
-                return ip_address(ip_address::IPv6, &dst);
+                return ip_address(ip_address::IPv6, &dst_data);
             }
 
             // ----------------------------------------------

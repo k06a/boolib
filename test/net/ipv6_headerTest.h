@@ -30,10 +30,10 @@ void ipv6_headerTest()
     ipv6b->qwords[0] = 0x1112131415161718LL;
     ipv6b->qwords[1] = 0x191A1B1C1D1E1FFFLL;
     
-    if ((ipv6h->src.qwords()[0] != 0x0102030405060708LL) ||
-        (ipv6h->src.qwords()[1] != 0x090A0B0C0D0E0FFFLL) ||
-        (ipv6h->dst.qwords()[0] != 0x1112131415161718LL) ||
-        (ipv6h->dst.qwords()[1] != 0x191A1B1C1D1E1FFFLL))
+    if ((ipv6h->src_data.qwords()[0] != 0x0102030405060708LL) ||
+        (ipv6h->src_data.qwords()[1] != 0x090A0B0C0D0E0FFFLL) ||
+        (ipv6h->dst_data.qwords()[0] != 0x1112131415161718LL) ||
+        (ipv6h->dst_data.qwords()[1] != 0x191A1B1C1D1E1FFFLL))
     {
         testFailed = true;
     }

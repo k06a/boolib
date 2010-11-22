@@ -31,8 +31,8 @@ void ipv4_headerTest()
     ip_address ipv4b = iph->dst_ip();
     ipv4a->dwords[0] = 0x01020304;
     ipv4b->dwords[0] = 0x11223344;
-    if ((ipv4h->src.dwords[0] != 0x01020304)
-     || (ipv4h->dst.dwords[0] != 0x11223344))
+    if ((ipv4h->src_data.dwords[0] != 0x01020304)
+     || (ipv4h->dst_data.dwords[0] != 0x11223344))
     {
         testFailed = true;
     }

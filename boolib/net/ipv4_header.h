@@ -68,20 +68,20 @@ namespace boolib
 
             // ---------------- Fourth DWORD ----------------
             
-            mutable ipv4_data src;
+            mutable ipv4_data src_data;
 
             virtual ip_address src_ip() const
             {
-                return ip_address(ip_address::IPv4, &src);
+                return ip_address(ip_address::IPv4, &src_data);
             }
 
             // ---------------- Fifth DWORD ----------------
             
-            mutable ipv4_data dst;
+            mutable ipv4_data dst_data;
 
             virtual ip_address dst_ip() const
             {
-                return ip_address(ip_address::IPv4, &dst);
+                return ip_address(ip_address::IPv4, &dst_data);
             }
             
             // ----------------------------------------------

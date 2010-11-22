@@ -54,6 +54,29 @@ namespace boolib
                 return ptr;
             }
 
+            operator ip_data& () const
+            {
+                return *ptr;
+            }
+
+            bool operator == (const ip_address & addr) const
+            {
+                return (version == addr.version) &&
+                       (memcmp(ptr, addr.ptr, version) == 0);
+            }
+
+            bool operator != (const ip_address & addr) const
+            {
+                return (version != addr.version) ||
+                       (memcmp(ptr, addr.ptr, version) != 0);
+            }
+
+            bool operator < (const ip_address & addr) const
+            {
+                return (version < addr.version) ||
+                       (memcmp(ptr, addr.ptr, addr.version) < 0);
+            }
+
             const char * data() const
             {
                 return (char*)ptr;
@@ -110,6 +133,24 @@ namespace boolib
             operator ip_data & ()
             {
                 return reinterpret_cast<ip_data&>(*this);
+            }
+
+            template<ip_address::ip_version T2>
+            bool operator == (const ip_data_t<T2> & addr) const
+            {
+                return (T == T2) && (memcmp(this, &addr, T) == 0);
+            }
+
+            template<ip_address::ip_version T2>
+            bool operator != (const ip_data_t<T2> & addr) const
+            {
+                return (T != T2) || (memcmp(this, &addr, T) != 0);
+            }
+
+            template<ip_address::ip_version T2>
+            bool operator < (const ip_data_t<T2> & addr) const
+            {
+                return (T < T2) || (memcmp(this, &addr, T2) < 0);
             }
         };
         #pragma pack(pop)
