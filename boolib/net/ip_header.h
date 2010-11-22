@@ -8,6 +8,68 @@ namespace boolib
     namespace net
     {
 
+        struct ip_data;
+
+        //
+        // IP Address Type
+        //
+
+        #pragma pack(push,1)
+        struct ip_address
+        {
+            enum ip_version : char
+            {
+                IPv4 = 4,
+                IPv6 = 16
+            };
+
+            ip_data * ptr;
+            bool wasAllocated;
+            ip_version version;
+            
+            ip_address(ip_version version, void * existing = NULL)
+                : ptr((ip_data*)existing)
+                , wasAllocated(existing == NULL)
+                , version(version) 
+            {
+                if (ptr == NULL)
+                    ptr = (ip_data*)(new char [version]);
+            }
+
+            ~ip_address()
+            {
+                if (wasAllocated)
+                    delete [] (char*)ptr;
+            }
+
+            ip_address(const ip_address & addr)
+            {
+                wasAllocated = false;
+                version = addr.version;
+                ptr = addr.ptr;
+            }
+
+            ip_data * operator -> () const
+            {
+                return ptr;
+            }
+
+            const char * data() const
+            {
+                return (char*)ptr;
+            }
+
+            const int size() const
+            {
+                return version;
+            }
+        };
+        #pragma pack(pop)
+
+        //
+        // IP Address Data Interface
+        //
+
         #pragma pack(push,1)
         struct ip_data
         {
@@ -22,30 +84,14 @@ namespace boolib
             #pragma warning(pop)
         };
         #pragma pack(pop)
-        
-        #pragma pack(push,1)
-        struct ip_ad
-        {
-            enum ip_version {
-                IPv4 = 4,
-                IPv6 = 6
-            };
 
-            ip_version version;
-            ip_data * ptr;
-
-            ip_ad(ip_version version, char * existing = NULL)
-                :  version(version), ptr((ip_data*)existing)
-            {
-                if (ptr == NULL)
-                    ptr = (ip_data*)(new char [(version == 4) ? 4 : 16]);
-            }
-        };
-        #pragma pack(pop)
+        //
+        // IP Address Data Template
+        //
 
         #pragma pack(push,1)
-        template<unsigned T>
-        struct ip_addr
+        template <ip_address::ip_version T>
+        struct ip_data_t
         {
             #pragma warning(push)
             #pragma warning(disable:4200)
@@ -53,104 +99,23 @@ namespace boolib
                 unsigned  char bytes[T];
                 unsigned short words[T/2];
                 unsigned   int dwords[T/4];
-                unsigned long long qwords[T/8];
             };
             #pragma warning(pop)
-            
-            unsigned char * data() const
+
+            unsigned long long * qwords()
             {
-                return (unsigned char *)this;
+                return (unsigned long long *)this;
             }
 
-            unsigned size() const
+            operator ip_data & ()
             {
-                return T;
-            }
-
-            template<unsigned T2>
-            bool operator == (const ip_addr<T2> & value) const
-            {
-                return (T == T2) && (memcmp(this, &value, T) == 0);
-            }
-
-            template<unsigned T2>
-            bool operator != (const ip_addr<T2> & value) const
-            {
-                return (T != T2) || (memcmp(this, &value, T) != 0);
-            }
-
-            template<unsigned T2>
-            bool operator < (const ip_addr<T2> & value) const
-            {
-                return (T == T2) && (memcmp(this, &value, T) < 0);
+                return reinterpret_cast<ip_data&>(*this);
             }
         };
         #pragma pack(pop)
 
-        typedef ip_addr<4>  ipv4_addr;
-        typedef ip_addr<16> ipv6_addr;
-
-        //
-        // IP Address Interface
-        //
-
-        struct ipv4_address;
-        struct ipv6_address;
-
-        #pragma pack(push,1)
-        struct ip_address
-        {
-            //virtual ~ip_address() {}
-
-            virtual int size() const = 0;
-            virtual char * data() const = 0;
-            virtual int version() const = 0;
-
-            bool operator == (const ip_address & address) const
-            {
-                int sz = this->size();
-                int * a = (int*)this->data();
-                int * b = (int*)address.data();
-                int ret = memcmp(a, b, sz);
-
-                return (sz == address.size()) &&
-                       (memcmp(this->data(), address.data(), sz) == 0);
-            }
-
-            bool operator != (const ip_address & address) const
-            {
-                return !(*this == address);
-            }
-
-            bool operator < (const ip_address & address) const
-            {
-                int sz = this->size();
-                return (sz <= address.size()) &&
-                       (memcmp(this, &address, sz) < 0);
-            }
-        };
-        #pragma pack(pop)
-        
-        #pragma pack(push,1)
-        template<typename T>
-        struct ip_address_abstract : public ip_address
-        {
-            virtual ~ip_address_abstract() {}
-
-            virtual int size() const = 0;
-
-            virtual char * data() const
-            {
-                // +4 - is HACK to skip Virtual Class Table pointer
-                return ((char*)(T*)this) + 4;
-            }
-
-            operator T & () const
-            {
-                return reinterpret_cast<T&>(*this);
-            }
-        };
-        #pragma pack(pop)
+        typedef ip_data_t<ip_address::IPv4> ipv4_data;
+        typedef ip_data_t<ip_address::IPv6> ipv6_data;
         
         //
         // IP Header Interface
@@ -163,8 +128,8 @@ namespace boolib
 
             virtual int size() const = 0;
             virtual char * data() const = 0;
-            virtual ip_address & src_ip() const = 0;
-            virtual ip_address & dst_ip() const = 0;
+            virtual ip_address src_ip() const = 0;
+            virtual ip_address dst_ip() const = 0;
 
             static unsigned short countSum(char * buffer, unsigned short length)
             {

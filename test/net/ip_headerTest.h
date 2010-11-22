@@ -6,7 +6,7 @@
 
 void ip_headerTest()
 {
-    using boolib::net::ip_ad;
+    using boolib::net::ip_address;
     using boolib::net::ip_data;
 
     bool testFailed = false;

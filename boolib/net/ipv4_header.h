@@ -10,31 +10,6 @@ namespace boolib
     {
 
         //
-        // IPv4 Address Format
-        //
-
-        #pragma pack(push,1)
-        struct ipv4_address : public ip_address_abstract<ipv4_address>
-        {
-            union {
-                unsigned   int dword;
-                unsigned short words[2];
-                unsigned  char bytes[4];
-            };
-
-            virtual int size() const
-            {
-                return 4;
-            }
-
-            virtual int version() const
-            {
-                return 4;
-            }
-        };
-        #pragma pack(pop)
-
-        //
         // IPv4 Header Format
         //
         // /---------------+---------------+---------------+---------------|
@@ -93,11 +68,21 @@ namespace boolib
 
             // ---------------- Fourth DWORD ----------------
             
-            mutable ipv4_address src;
+            mutable ipv4_data src;
+
+            virtual ip_address src_ip() const
+            {
+                return ip_address(ip_address::IPv4, &src);
+            }
 
             // ---------------- Fifth DWORD ----------------
             
-            mutable ipv4_address dst;
+            mutable ipv4_data dst;
+
+            virtual ip_address dst_ip() const
+            {
+                return ip_address(ip_address::IPv4, &dst);
+            }
             
             // ----------------------------------------------
 
@@ -110,16 +95,6 @@ namespace boolib
             virtual int size() const
             {
                 return hdr_len*4;
-            }
-
-            virtual ip_address & src_ip() const
-            {
-                return reinterpret_cast<ip_address&>(src);
-            }
-
-            virtual ip_address & dst_ip() const
-            {
-                return reinterpret_cast<ip_address&>(dst);
             }
         };
         #pragma pack(pop)
