@@ -8,6 +8,88 @@ namespace boolib
     namespace net
     {
 
+        #pragma pack(push,1)
+        struct ip_data
+        {
+            #pragma warning(push)
+            #pragma warning(disable:4200)
+            union {
+                unsigned  char bytes[];
+                unsigned short words[];
+                unsigned   int dwords[];
+                unsigned long long qwords[];
+            };
+            #pragma warning(pop)
+        };
+        #pragma pack(pop)
+        
+        #pragma pack(push,1)
+        struct ip_ad
+        {
+            enum ip_version {
+                IPv4 = 4,
+                IPv6 = 6
+            };
+
+            ip_version version;
+            ip_data * ptr;
+
+            ip_ad(ip_version version, char * existing = NULL)
+                :  version(version), ptr((ip_data*)existing)
+            {
+                if (ptr == NULL)
+                    ptr = (ip_data*)(new char [(version == 4) ? 4 : 16]);
+            }
+        };
+        #pragma pack(pop)
+
+        #pragma pack(push,1)
+        template<unsigned T>
+        struct ip_addr
+        {
+            #pragma warning(push)
+            #pragma warning(disable:4200)
+            union {
+                unsigned  char bytes[T];
+                unsigned short words[T/2];
+                unsigned   int dwords[T/4];
+                unsigned long long qwords[T/8];
+            };
+            #pragma warning(pop)
+            
+            unsigned char * data() const
+            {
+                return (unsigned char *)this;
+            }
+
+            unsigned size() const
+            {
+                return T;
+            }
+
+            template<unsigned T2>
+            bool operator == (const ip_addr<T2> & value) const
+            {
+                return (T == T2) && (memcmp(this, &value, T) == 0);
+            }
+
+            template<unsigned T2>
+            bool operator != (const ip_addr<T2> & value) const
+            {
+                return (T != T2) || (memcmp(this, &value, T) != 0);
+            }
+
+            template<unsigned T2>
+            bool operator < (const ip_addr<T2> & value) const
+            {
+                return (T == T2) && (memcmp(this, &value, T) < 0);
+            }
+        };
+        #pragma pack(pop)
+
+        typedef ip_addr<4>  ipv4_addr;
+        typedef ip_addr<16> ipv6_addr;
+
         //
         // IP Address Interface
         //
