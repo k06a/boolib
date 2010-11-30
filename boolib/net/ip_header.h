@@ -1,6 +1,7 @@
 #ifndef IP_HEADER_H
 #define IP_HEADER_H
 
+#include <string.h>
 #include "util/LittleBigEndian.h"
 
 namespace boolib
@@ -17,7 +18,7 @@ namespace boolib
         #pragma pack(push,1)
         struct ip_address
         {
-            enum ip_version : char
+            enum ip_version
             {
                 IPv4 = 4,
                 IPv6 = 16

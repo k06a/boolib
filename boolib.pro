@@ -10,7 +10,9 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += main.cpp
+SOURCES += \
+    main.cpp \
+    gtest/src/gtest-all.cc
 
 HEADERS += \
     boolib/crypt.h \
@@ -47,4 +49,6 @@ HEADERS += \
 
 INCLUDEPATH += \
     ./boolib \
-    ./test
+    ./test \
+    ./gtest \
+    ./gtest/include/

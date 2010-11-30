@@ -5,3 +5,4 @@ relre:.user$
 relre:.suo$
 relre:.sdf$
 relre:.old$
+relre:^gtest/
