@@ -35,8 +35,6 @@ namespace boolib
         template<typename T, typename T2>
         inline void Karatsuba_multiply(const T * x, const T * y, T2 * res)
         {
-            const unsigned short endian = 0x0001;
-        
             if (IS_LITTLE_ENDIAN)
                 return Karatsuba_multiply_little_endian(x,y,res);
             if (IS_BIG_ENDIAN)
@@ -79,9 +77,9 @@ namespace boolib
             // Define vars (differs from byte order)
 
             #define ptrRes ((T*)res)
-            T2 & highWord = *(T2*)(ptrRes+3);
-            T2 &  lowWord = *(T2*)(ptrRes+2);
+            T2 & highWord = *(T2*)(ptrRes+0);
             T2 &  midWord = *(T2*)(ptrRes+1);
+            T2 &  lowWord = *(T2*)(ptrRes+2);
             T  & highByte = *(T *)(ptrRes+0);
 
             const T & x0 = x[1];
