@@ -226,6 +226,10 @@
 				Name="util"
 				>
 				<File
+					RelativePath=".\test\util\Intx2Test.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\test\util\LitteBigEndianTest.h"
 					>
 				</File>
@@ -313,6 +317,10 @@
 			<Filter
 				Name="util"
 				>
+				<File
+					RelativePath=".\boolib\util\Intx2.h"
+					>
+				</File>
 				<File
 					RelativePath=".\boolib\util\LittleBigEndian.h"
 					>

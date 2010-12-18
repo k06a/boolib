@@ -6,6 +6,9 @@
     <ClCompile Include="test\algo\KaratsubaTest.cpp">
       <Filter>test\algo</Filter>
     </ClCompile>
+    <ClCompile Include="test\util\Intx2Test.cpp">
+      <Filter>test\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test\syncTest.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="boolib\algo\Karatsuba.h">
       <Filter>boolib\algo</Filter>
+    </ClInclude>
+    <ClInclude Include="boolib\util\Intx2.h">
+      <Filter>boolib\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

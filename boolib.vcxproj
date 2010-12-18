@@ -99,6 +99,7 @@
     <ClInclude Include="boolib\net\ipv6_header.h" />
     <ClInclude Include="boolib\net\ip_header.h" />
     <ClInclude Include="boolib\util.h" />
+    <ClInclude Include="boolib\util\Intx2.h" />
     <ClInclude Include="boolib\util\LittleBigEndian.h" />
     <ClInclude Include="test\cryptTest.h" />
     <ClInclude Include="test\crypt\ShakedValueTest.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="gtest\src\gtest-all.cc" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test\algo\KaratsubaTest.cpp" />
+    <ClCompile Include="test\util\Intx2Test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

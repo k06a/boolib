@@ -12,7 +12,8 @@ TEMPLATE = app
 
 SOURCES += \
     main.cpp \
-    gtest/src/gtest-all.cc
+    gtest/src/gtest-all.cc \
+    test/util/Intx2Test.cpp
 
 SOURCES += \
     test/algo/KaratsubaTest.cpp
@@ -32,7 +33,8 @@ HEADERS += \
     boolib/util/LittleBigEndian.h \
     boolib/wrap.h \
     boolib/wrap/ReliableStreamDecorator.h \
-    boolib/wrap/LengthStreamDecorator.h
+    boolib/wrap/LengthStreamDecorator.h \
+    boolib/util/Intx2.h
 
 HEADERS += \
     test/cryptTest.h \
