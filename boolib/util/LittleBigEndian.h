@@ -6,6 +6,12 @@ namespace boolib
     namespace util
     {
         
+        // Determine Little-Endian or Big-Endian
+
+        #define IS_LITTLE_ENDIAN (0x04030201 == *(int *)"\x01\x02\x03\x04")
+        #define IS_BIG_ENDIAN    (0x04030201 == *(int *)"\x04\x03\x02\x01")
+        #define IS_PDP_ENDIAN    (0x04030201 == *(int *)"\x02\x01\x04\x03")
+
         // Little-Endian template
 
         #pragma pack(push,1)
