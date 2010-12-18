@@ -5,12 +5,12 @@
 #include "algo.h"
 #include "LittleBigEndian.h"
 
-/*
+
 namespace boolib
 {
     namespace util
     {
-*/
+
         // Big Integers
 
         template<typename T>
@@ -19,8 +19,8 @@ namespace boolib
         //
 
         //typedef unsigned  char  u8;     // 1 byte
-        //typedef unsigned short u16;     // 2 bytes
-        typedef Intx2<unsigned short> u32;      // 4 bytes
+        typedef unsigned short u16;     // 2 bytes
+        typedef Intx2<u16> u32;         // 4 bytes
         typedef Intx2<u32> u64;         // 8 bytes
         typedef Intx2<u64> u128;        // 16 bytes
         typedef Intx2<u128> u256;       // 32 bytes
@@ -77,18 +77,47 @@ namespace boolib
                     memcpy(this, &value, copySize);
                 if (IS_BIG_ENDIAN)
                     memcpy(this, ((char*)(&value+1)) - copySize, copySize);
+
+                return *this;
+            }
+
+            operator unsigned __int64 () const
+            {
+                return ((a << (8*sizeof(a))) | b);
+            }
+
+            operator unsigned int () const
+            {
+                return ((a << (8*sizeof(a))) | b);
+            }
+
+            operator unsigned short () const
+            {
+                return ((a << (8*sizeof(a))) | b);
             }
 
         public: // Comparing
 
             template<typename T1, typename T2>
             friend bool operator == (const Intx2<T1> & x, const Intx2<T2> & y);
+            template<typename T1, typename T2>
+            friend bool operator == (const Intx2<T1> & x, const T2 & y);
+            template<typename T1, typename T2>
+            friend bool operator == (const T2 & x, const Intx2<T1> & y);
 
             template<typename T1, typename T2>
             friend bool operator != (const Intx2<T1> & x, const Intx2<T2> & y);
+            template<typename T1, typename T2>
+            friend bool operator != (const Intx2<T1> & x, const T2 & y);
+            template<typename T1, typename T2>
+            friend bool operator != (const T2 & x, const Intx2<T1> & y);
         
             template<typename T1, typename T2>
             friend bool operator < (const Intx2<T1> & x, const Intx2<T2> & y);
+            template<typename T1, typename T2>
+            friend bool operator < (const Intx2<T1> & x, const T2 & y);
+            template<typename T1, typename T2>
+            friend bool operator < (const T2 & x, const Intx2<T1> & y);
         
         public:
             Intx2<T> operator - () const
@@ -125,31 +154,40 @@ namespace boolib
                 return --res;
             }
 
-            template<typename T2>
-            Intx2<T> & operator += (Intx2<T2> & value)
+            template<typename T1>
+            Intx2<T> & operator += (Intx2<T1> & value)
             {
                 *this = *this + value;
                 return *this;
             }
 
-            template<typename T2>
-            Intx2<T> & operator -= (Intx2<T2> & value)
+            template<typename T1>
+            Intx2<T> & operator -= (Intx2<T1> & value)
             {
                 *this = *this - value;
                 return *this;
             }
 
-            template<typename T2>
-            friend Intx2<T2>
-            operator + (const Intx2<T2> & x, const Intx2<T2> & y);
+            template<typename T1>
+            friend Intx2<T1> operator + (const Intx2<T1> & x, const Intx2<T1> & y);
+            template<typename T1, typename T2>
+            friend Intx2<T1> operator + (const Intx2<T1> & x, const T2 & y);
+            template<typename T1, typename T2>
+            friend Intx2<T1> operator + (const T2 & x, const Intx2<T1> & y);
 
-            template<typename T2>
-            friend Intx2<T2>
-            operator - (const Intx2<T2> & x, const Intx2<T2> & y);
+            template<typename T1>
+            friend Intx2<T1> operator - (const Intx2<T1> & x, const Intx2<T1> & y);
+            template<typename T1, typename T2>
+            friend Intx2<T1> operator - (const Intx2<T2> & x, const T2 & y);
+            template<typename T1, typename T2>
+            friend Intx2<T1> operator - (const T2 & x, const Intx2<T1> & y);
 
-            template<typename T2>
-            friend Intx2<Intx2<T2> >
-            operator * (const Intx2<T2> & x, const Intx2<T2> & y);
+            template<typename T1>
+            friend Intx2<Intx2<T1> > operator * (const Intx2<T1> & x, const Intx2<T1> & y);
+            template<typename T1, typename T2>
+            friend Intx2<Intx2<T1> > operator * (const Intx2<T1> & x, const T2 & y);
+            template<typename T1,typename T2>
+            friend Intx2<Intx2<T1> > operator * (const T2 & x, const Intx2<T1> & y);
 
             template<typename T2>
             friend std::ostream &
@@ -157,7 +195,7 @@ namespace boolib
         };
         #pragma pack(pop)
 
-        // ----
+        // ================================================================
 
         template<typename T1, typename T2>
         inline bool operator == (const Intx2<T1> & x, const Intx2<T2> & y)
@@ -171,15 +209,49 @@ namespace boolib
         }
 
         template<typename T1, typename T2>
+        inline bool operator == (const Intx2<T1> & x, const T2 & y)
+        {
+            if (sizeof(x) <= sizeof(y))
+                return (T2(x) == y);
+            else
+                return (x == Intx2<T1>(y));
+        }
+
+        template<typename T1, typename T2>
+        inline bool operator == (const T2 & x, const Intx2<T1> & y)
+        {
+            if (sizeof(x) >= sizeof(y))
+                return (x == T2(y));
+            else
+                return (Intx2<T1>(x) == y);
+        }
+
+        // ----------------------------------------------------------------
+
+        template<typename T1, typename T2>
         inline bool operator != (const Intx2<T1> & x, const Intx2<T2> & y)
         {
             return !(x == y);
         }
 
         template<typename T1, typename T2>
+        inline bool operator != (const Intx2<T1> & x, const T2 & y)
+        {
+            return !(x == y);
+        }
+
+        template<typename T1, typename T2>
+        inline bool operator != (const T2 & x, const Intx2<T1> & y)
+        {
+            return !(x == y);
+        }
+
+        // ----------------------------------------------------------------
+
+        template<typename T1, typename T2>
         inline bool operator < (const Intx2<T1> & x, const Intx2<T2> & y)
         {
-            if (sizeof(x) < sizeof(y))
+            if (sizeof(x) <= sizeof(y))
                 return (Intx2<T2>(x) < y);
             if (sizeof(x) > sizeof(y))
                 return (x < Intx2<T1>(y));
@@ -187,25 +259,61 @@ namespace boolib
             return (x.a < y.a) || ((x.a == y.a) && (x.b < y.b));
         }
 
-        // ----
-
-        template<typename T>
-        Intx2<T>
-        operator + (const Intx2<T> & x, const Intx2<T> & y)
+        template<typename T1, typename T2>
+        inline bool operator < (const Intx2<T1> & x, const T2 & y)
         {
-            Intx2<T> res;
+            if (sizeof(x) <= sizeof(y))
+                return (T2(x) < y);
+            else
+                return (x < Intx2<T1>(y));
+        }
+
+        template<typename T1, typename T2>
+        inline bool operator < (const T2 & x, const Intx2<T1> & y)
+        {
+            if (sizeof(x) >= sizeof(y))
+                return (x < T2(y));
+            else
+                return (Intx2<T1>(x) < y);
+        }
+
+        // ================================================================
+
+        template<typename T1>
+        Intx2<T1> operator + (const Intx2<T1> & x, const Intx2<T1> & y)
+        {
+            Intx2<T1> res;
             res.b = x.b + y.b;
             res.a = x.a + y.a;
             if (res.b < x.b)
                 res.a++;
             return res;
         }
-
-        template<typename T>
-        Intx2<T>
-        operator - (const Intx2<T> & x, const Intx2<T> & y)
+        
+        template<typename T1, typename T2>
+        Intx2<T1> operator + (const Intx2<T1> & x, const T2 & y)
         {
-            Intx2<T> res;
+            if (sizeof(x) >= sizeof(y))
+                return x + Intx2<T1>(y);
+            else
+                return T2(x) + y;
+        }
+
+        template<typename T1, typename T2>
+        Intx2<T1> operator + (const T2 & x, const Intx2<T1> & y)
+        {
+            if (sizeof(x) >= sizeof(y))
+                return x + T2(y);
+            else
+                return Intx2<T1>(x) + y;
+        }
+
+        // ----------------------------------------------------------------
+
+        template<typename T1>
+        Intx2<T1> operator - (const Intx2<T1> & x, const Intx2<T1> & y)
+        {
+            Intx2<T1> res;
             res.b = x.b - y.b;
             res.a = x.a - y.a;
             if (res.b < x.b)
@@ -213,16 +321,53 @@ namespace boolib
             return res;
         }
 
-        template<typename T>
-        Intx2<Intx2<T> >
-        operator * (const Intx2<T> & x, const Intx2<T> & y)
+        template<typename T1, typename T2>
+        Intx2<T1> operator - (const Intx2<T1> & x, const T2 & y)
         {
-            Intx2<Intx2<T> > res;
-            Karatsuba_multiply((T*)&x,(T*)&y,(Intx2<T>*)res);
+            if (sizeof(x) >= sizeof(y))
+                return x - Intx2<T1>(y);
+            else
+                return T2(x) - y;
+        }
+
+        template<typename T1, typename T2>
+        Intx2<T1> operator - (const T2 & x, const Intx2<T1> & y)
+        {
+            if (sizeof(x) >= sizeof(y))
+                return x - T2(y);
+            else
+                return Intx2<T1>(x) - y;
+        }
+
+        // ----------------------------------------------------------------
+
+        template<typename T1>
+        Intx2<Intx2<T1> > operator * (const Intx2<T1> & x, const Intx2<T1> & y)
+        {
+            Intx2<Intx2<T1> > res;
+            Karatsuba_multiply((T1*)&x,(T1*)&y,(Intx2<T1>*)res);
             return res;
         }
 
-        // ----
+        template<typename T1, typename T2>
+        Intx2<Intx2<T1> > operator * (const Intx2<T1> & x, const T2 & y)
+        {
+            if (sizeof(x) >= sizeof(y))
+                return x * Intx2<T1>(y);
+            else
+                return T2(x) * y;
+        }
+
+        template<typename T1, typename T2>
+        Intx2<Intx2<T1> > operator * (const T2 & x, const Intx2<T1> & y)
+        {
+            if (sizeof(x) >= sizeof(y))
+                return x * T2(y);
+            else
+                return Intx2<T1>(x) * y;
+        }
+
+        // ================================================================
 
         template<typename T>
         std::ostream &
@@ -230,10 +375,10 @@ namespace boolib
         {
             return os << std::hex << value.a << value.b << std::dec;
         }
-/*
+
     }
     // namespace util
 }
 // namespace boolib
-*/
+
 #endif // INTX2_H

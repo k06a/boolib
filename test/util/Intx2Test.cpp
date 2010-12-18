@@ -14,14 +14,15 @@ TEST(Intx2Test, SumTest)
     for (unsigned short a = 0; a < 1000; a++)
     for (unsigned short b = 0; b < 1000; b++)
     {
-        //unsigned int r1 = a+b;
-        u32 r1 = a+b;
+        unsigned short r1 = a+b;
+        //u32 r1 = a+b;
         
         u32 x = a;
+        x + 5;
         u32 y = b;
         u32 r2 = x+y;
 
-        EXPECT_EQ(r1, r2);
+        EXPECT_EQ(r2, r1);
     }
 /*
     for (unsigned int a = 0; a < 1000; a++)
