@@ -246,6 +246,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="algo"
+				>
+				<File
+					RelativePath=".\test\algo\KaratsubaTest.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="boolib"
@@ -323,6 +331,14 @@
 				</File>
 				<File
 					RelativePath=".\boolib\net\ipv6_header.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="algo"
+				>
+				<File
+					RelativePath=".\boolib\algo\Karatsuba.h"
 					>
 				</File>
 			</Filter>

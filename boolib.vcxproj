@@ -91,6 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="boolib\algo\Karatsuba.h" />
     <ClInclude Include="boolib\crypt.h" />
     <ClInclude Include="boolib\crypt\ShakedValue.h" />
     <ClInclude Include="boolib\net.h" />
@@ -123,6 +124,7 @@
   <ItemGroup>
     <ClCompile Include="gtest\src\gtest-all.cc" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="test\algo\KaratsubaTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -14,7 +14,11 @@ SOURCES += \
     main.cpp \
     gtest/src/gtest-all.cc
 
+SOURCES += \
+    test/algo/KaratsubaTest.cpp
+
 HEADERS += \
+    boolib/algo/Karatsuba.h \
     boolib/crypt.h \
     boolib/crypt/ShakedValue.h \
     boolib/net.h \

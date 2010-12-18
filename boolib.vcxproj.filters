@@ -3,6 +3,9 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="gtest\src\gtest-all.cc" />
+    <ClCompile Include="test\algo\KaratsubaTest.cpp">
+      <Filter>test\algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test\syncTest.h">
@@ -89,6 +92,9 @@
     <ClInclude Include="test\net\ipv6_headerTest.h">
       <Filter>test\net</Filter>
     </ClInclude>
+    <ClInclude Include="boolib\algo\Karatsuba.h">
+      <Filter>boolib\algo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="boolib">
@@ -126,6 +132,12 @@
     </Filter>
     <Filter Include="boolib\net">
       <UniqueIdentifier>{80301c2d-2214-48ae-909f-ee75893b9c43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boolib\algo">
+      <UniqueIdentifier>{14387421-5874-440b-bae1-6b6d3c6c923a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\algo">
+      <UniqueIdentifier>{0a836ec7-4eaf-4826-9cff-debf8bb44850}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
