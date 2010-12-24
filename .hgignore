@@ -6,3 +6,4 @@ relre:.suo$
 relre:.sdf$
 relre:.old$
 relre:^gtest/
+relre:Release/

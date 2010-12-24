@@ -1,43 +1,62 @@
 #ifndef INTX2TEST_H
 #define INTX2TEST_H
 
+#include <iostream>
 #include "gtest/gtest.h"
 #include "util.h"
 
-using namespace boolib::util;
-
-TEST(Intx2Test, SumTest)
+TEST(Intx2_i32, Add_1M_Times)
 {
-    //using boolib::util::u32;
-    //using boolib::util::u64;
-
-    for (unsigned short a = 0; a < 1000; a++)
-    for (unsigned short b = 0; b < 1000; b++)
+    using boolib::util::i16;
+    using boolib::util::i32;
+    
+    for (short a = -500; a < 500; a++)
+    for (short b = -500; b < 500; b++)
     {
-        unsigned short r1 = a+b;
-        //u32 r1 = a+b;
+        int sum_ab = a+b;
         
-        u32 x = a;
-        x + 5;
-        u32 y = b;
-        u32 r2 = x+y;
+        i16 x = a;        
+        i16 y = b;
+        i32 sum_xy = x+y;
 
-        EXPECT_EQ(r2, r1);
+        EXPECT_EQ(sum_ab, sum_xy);
     }
-/*
-    for (unsigned int a = 0; a < 1000; a++)
-    for (unsigned int b = 0; b < 1000; b++)
+}
+
+TEST(Intx2_i32, Sub_1M_Times)
+{
+    using boolib::util::i16;
+    using boolib::util::i32;
+    
+    for (short a = -500; a < 500; a++)
+    for (short b = -500; b < 500; b++)
     {
-        //unsigned __int64 r1 = ((unsigned __int64)a) + ((unsigned __int64)b);
-        u64 r1 = ((unsigned __int64)a) + ((unsigned __int64)b);
+        int sub_ab = a+b;
         
-        u64 x = a;
-        u64 y = b;
-        u64 r2 = x+y;
+        i16 x = a;        
+        i16 y = b;
+        i32 sub_xy = x+y;
 
-        EXPECT_EQ(r1, r2);
+        EXPECT_EQ(sub_ab, sub_xy);
     }
-*/
+}
+
+TEST(Intx2_i32, Mul_1M_Times)
+{
+    using boolib::util::i16;
+    using boolib::util::i32;
+    
+    for (short a = -500; a < 500; a++)
+    for (short b = -500; b < 500; b++)
+    {
+        int mul_ab = a*b;
+        
+        i16 x = a;        
+        i16 y = b;
+        i32 mul_xy = x*y;
+
+		EXPECT_EQ(mul_ab, mul_xy);
+    }
 }
 
 #endif // INTX2TEST_H

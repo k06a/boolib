@@ -2,11 +2,11 @@
 #include "algo.h"
 #include "gtest/gtest.h"
 
-TEST(KaratsubaMultiplication, Karatsubas1MTime)
+TEST(KaratsubaMultiplication, 64K_Times)
 {
     unsigned int c = 0;
-    for (unsigned short a = 0; a < 1000; a++)
-    for (unsigned short b = 0; b < 1000; b++)
+    for (unsigned short a = 0; a < 800; a++)
+    for (unsigned short b = 0; b < 800; b++)
     {
         unsigned  char * x = (unsigned  char *)&a;
         unsigned  char * y = (unsigned  char *)&b;
