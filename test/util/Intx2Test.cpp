@@ -65,7 +65,7 @@ TEST(Intx2_i32, Mul_1M_Times)
         i16 y = b;
         i32 mul_xy = x*y;
 
-		EXPECT_EQ(mul_ab, mul_xy);
+        EXPECT_EQ(mul_ab, mul_xy);
     }
 }
 /*
@@ -77,7 +77,7 @@ TEST(Intx2_i32, Div_1M_Times)
     for (short a = RANGE_FROM; a < RANGE_TO; a++)
     for (short b = RANGE_FROM; b < RANGE_TO; b++)
     {
-		if (b == 0) continue;
+        if (b == 0) continue;
 
         int div_ab = a/b;
         
@@ -90,7 +90,7 @@ TEST(Intx2_i32, Div_1M_Times)
             x = x;
         }
 
-		EXPECT_EQ(div_ab, div_xy);
+        EXPECT_EQ(div_ab, div_xy);
     }
 }
 

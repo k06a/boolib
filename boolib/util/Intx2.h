@@ -18,8 +18,8 @@ namespace boolib
 
         //
 
-        typedef unsigned char u8;			// 1 byte
-        typedef Intx2<u8,false> u16;		// 2 bytes
+        typedef unsigned char u8;           // 1 byte
+        typedef Intx2<u8,false> u16;        // 2 bytes
         typedef Intx2<u16,false> u32;       // 4 bytes
         typedef Intx2<u32,false> u64;       // 8 bytes
         typedef Intx2<u64,false> u128;      // 16 bytes
@@ -30,11 +30,11 @@ namespace boolib
         typedef Intx2<u2048,false> u4096;   // 512 bytes
         typedef Intx2<u4096,false> u8192;   // 1024 bytes
         typedef Intx2<u8192,false> u16384;  // 2048 bytes
-        typedef Intx2<u16384,false> u32768;	// 4096 bytes
-        typedef Intx2<u32768,false> u65536;	// 8192 bytes
+        typedef Intx2<u16384,false> u32768; // 4096 bytes
+        typedef Intx2<u32768,false> u65536; // 8192 bytes
 
-		typedef signed char i8;				// 1 byte
-        typedef Intx2<u8,true> i16;			// 2 bytes
+        typedef signed char i8;             // 1 byte
+        typedef Intx2<u8,true> i16;         // 2 bytes
         typedef Intx2<u16,true> i32;        // 4 bytes
         typedef Intx2<u32,true> i64;        // 8 bytes
         typedef Intx2<u64,true> i128;       // 16 bytes
@@ -144,34 +144,34 @@ namespace boolib
                 return *this;
             }
 
-		public: // Tools
+        public: // Tools
 
             inline bool isZero() const
-			{
+            {
                 return (a == 0) && (b == 0);
-			}
+            }
 
-			inline bool isNegative() const
-			{
+            inline bool isNegative() const
+            {
                 //if (!S) return false;
 
                 if (sizeof(a) == 1)
                     return (a>>7) == 1;
                 else
                     return (a < 0);
-				//return (S == true) && (a < 0);
-			}
+                //return (S == true) && (a < 0);
+            }
 
-			inline bool isPositive() const
-			{
+            inline bool isPositive() const
+            {
                 //if (!S) retrun true;
 
                 if (sizeof(a) == 1)
                     return (a>>7) == 0;
                 else
                     return (a >= 0);
-				//return (S == false) || (a > 0);
-			}
+                //return (S == false) || (a > 0);
+            }
 
             template<typename T1>
             inline T1 toInteger(T1 * unused = 0) const
@@ -194,13 +194,13 @@ namespace boolib
                 //return (T1(a << (8*sizeof(T)))) | ((T1)b);
             }
 
-			template<typename T1, bool S1>
-			inline operator Intx2<T1,S1> () const
-			{
-				return *this;
-			}
-			
-			// Signed operators
+            template<typename T1, bool S1>
+            inline operator Intx2<T1,S1> () const
+            {
+                return *this;
+            }
+            
+            // Signed operators
             /*
             typedef signed __int64 Intx2<T,S>::* signed_int64;
             inline operator signed_int64() const {
@@ -219,7 +219,7 @@ namespace boolib
                 return toInteger<signed char>();
             }
 
-			// Unsigned operators
+            // Unsigned operators
             
             inline operator unsigned __int64() const {
                 return toInteger<unsigned __int64>();
@@ -233,11 +233,11 @@ namespace boolib
             inline operator unsigned char() const {
                 return toInteger<unsigned char>();
             }
-			*/
+            */
         public: // Boolean friend operators
 
             // 1. The same type with may be different signs
-			// 2,3. Different types
+            // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend bool operator == (const Intx2<T1,S1> & x, const Intx2<T1, S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -246,7 +246,7 @@ namespace boolib
             friend bool operator == (const T2 & x, const Intx2<T1,S1> & y);
 
             // 1. The same type with may be different signs
-			// 2,3. Different types
+            // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend bool operator != (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -255,7 +255,7 @@ namespace boolib
             friend bool operator != (const T2 & x, const Intx2<T1,S1> & y);
         
             // 1. The same type with may be different signs
-			// 2,3. Different types
+            // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend bool operator < (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -281,7 +281,7 @@ namespace boolib
                 return res;
             }
 
-			Intx2<T,S> operator >> (const int value) const
+            Intx2<T,S> operator >> (const int value) const
             {
                 Intx2<T,S> res;
                 res.b = (b >> value) | (a << (8*sizeof(a)-value));
@@ -290,7 +290,7 @@ namespace boolib
             }
 
             // 1. The same type with may be different signs
-			// 2,3. Different types
+            // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend Intx2<T1,S1||S2> operator | (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -299,7 +299,7 @@ namespace boolib
             friend Intx2<T1,S1||((T2(-1))<0)> operator | (const T2 & x, const Intx2<T1,S1> & y);
 
             // 1. The same type with may be different signs
-			// 2,3. Different types
+            // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend Intx2<T1,S1||S2> operator & (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -308,7 +308,7 @@ namespace boolib
             friend Intx2<T1,S1||((T2(-1))<0)> operator & (const T2 & x, const Intx2<T1,S1> & y);
 
             // 1. The same type with may be different signs
-			// 2,3. Different types
+            // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend Intx2<T1,S1||S2> operator ^ (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -316,16 +316,16 @@ namespace boolib
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
             friend Intx2<T1,S1||((T2(-1))<0)> operator ^ (const T2 & x, const Intx2<T1,S1> & y);
 
-		public: // Self-Bitwise operators
+        public: // Self-Bitwise operators
 
             Intx2<T,S> & operator <<= (const int value)
             {
                 a = (a << value) | (b >> (8*sizeof(b)-value));
-				b = b << value;
+                b = b << value;
                 return *this;
             }
 
-			Intx2<T,S> & operator >>= (const int value)
+            Intx2<T,S> & operator >>= (const int value)
             {
                 b = (b >> value) | (a << (8*sizeof(a)-value));
                 a = a >> value;
@@ -414,7 +414,7 @@ namespace boolib
         public: // Math friend operators
 
             // 1. The same type with may be different signs
-			// 2,3. Different types
+            // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend Intx2<T1,S1||S2> operator + (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -422,8 +422,8 @@ namespace boolib
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
             friend Intx2<T1,S1||((T2(-1))<0)> operator + (const T2 & x, const Intx2<T1,S1> & y);
 
-			// 1. The same type with may be different signs
-			// 2,3. Different types
+            // 1. The same type with may be different signs
+            // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend Intx2<T1,S1||S2> operator - (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -432,7 +432,7 @@ namespace boolib
             friend Intx2<T1,S1||((T2(-1))<0)> operator - (const T2 & x, const Intx2<T1,S1> & y);
 
             // 1. The same type with may be different signs
-			// 2,3. Different types
+            // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend Intx2<Intx2<T1,false>,S1||S2> operator * (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -440,8 +440,8 @@ namespace boolib
             template<typename T1,typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
             friend Intx2<Intx2<T1,false>,S1||((T2(-1))<0)> operator * (const T2 & x, const Intx2<T1,S1> & y);
 
-			// 1. The same type with may be different signs
-			// 2,3. Different types
+            // 1. The same type with may be different signs
+            // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend Intx2<T1,S1||S2> operator / (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -466,7 +466,7 @@ namespace boolib
             #define CHILD ((TCHILD*)this)
 
         public: // Signed type tools
-			
+            
 
             #undef CHILD
             #undef TO_STRING
@@ -495,7 +495,7 @@ namespace boolib
         inline bool operator == (const Intx2<T1,S1> & x, const Intx2<T1, S2> & y)
         {
             bool neg_x = (x < 0);
-			bool neg_y = (y < 0);
+            bool neg_y = (y < 0);
 
             if (neg_x ^ neg_y)
                 return false;
@@ -555,16 +555,16 @@ namespace boolib
         template<typename T1, bool S1, bool S2>
         inline bool operator < (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y)
         {
-			bool neg_x = (x < 0);
-			bool neg_y = (y < 0);
+            bool neg_x = (x < 0);
+            bool neg_y = (y < 0);
 
-			if (neg_x && !neg_y) return true;
-			if (!neg_x && neg_y) return false;
-			
-			bool result = (x.a < y.a) || ((x.a == y.a) && (x.b < y.b));
+            if (neg_x && !neg_y) return true;
+            if (!neg_x && neg_y) return false;
+            
+            bool result = (x.a < y.a) || ((x.a == y.a) && (x.b < y.b));
 
-			if (neg_x && neg_y)
-				return !result;
+            if (neg_x && neg_y)
+                return !result;
 
             return result;
         }
@@ -572,8 +572,8 @@ namespace boolib
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
         inline bool operator < (const Intx2<T1,S1> & x, const T2 & y)
         {
-			if (y == 0)
-				return x.isNegative();
+            if (y == 0)
+                return x.isNegative();
 
             const bool T2_SIGN = (T2(-1)<0);
 
@@ -586,8 +586,8 @@ namespace boolib
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
         inline bool operator < (const T2 & x, const Intx2<T1,S1> & y)
         {
-			if (x == 0)
-				return x.isPositive();
+            if (x == 0)
+                return x.isPositive();
 
             const bool T2_SIGN = (T2(-1)<0);
 
@@ -617,7 +617,7 @@ namespace boolib
         {
             const bool T2_SIGN = (T2(-1)<0);
 
-			if (sizeof(x) >= sizeof(y))
+            if (sizeof(x) >= sizeof(y))
                 return x + Intx2<T1,S1||T2_SIGN>(y);
             else
                 return x.toInteger<T2>() + y;
@@ -626,7 +626,7 @@ namespace boolib
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
         inline Intx2<T1,S1||((T2(-1))<0)> operator + (const T2 & x, const Intx2<T1,S1> & y)
         {
-			const bool T2_SIGN = (T2(-1)<0);
+            const bool T2_SIGN = (T2(-1)<0);
 
             if (sizeof(x) >= sizeof(y))
                 return x + T2(y);
@@ -652,7 +652,7 @@ namespace boolib
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
         inline Intx2<T1,S1||((T2(-1))<0)> operator - (const Intx2<T1,S1> & x, const T2 & y)
         {
-			const bool T2_SIGN = (T2(-1)<0);
+            const bool T2_SIGN = (T2(-1)<0);
 
             if (sizeof(x) >= sizeof(y))
                 return x - Intx2<T1,S1||T2_SIGN>(y);
@@ -663,7 +663,7 @@ namespace boolib
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
         inline Intx2<T1,S1||((T2(-1))<0)> operator - (const T2 & x, const Intx2<T1,S1> & y)
         {
-			const bool T2_SIGN = (T2(-1)<0);
+            const bool T2_SIGN = (T2(-1)<0);
 
             if (sizeof(x) >= sizeof(y))
                 return x - T2(y);
@@ -681,19 +681,19 @@ namespace boolib
             Intx2<T1,S1> & x = const_cast<Intx2<T1,S1> &>(x_); 
             Intx2<T1,S2> & y = const_cast<Intx2<T1,S2> &>(y_); 
 
-			bool neg_x = (x < 0);
-			bool neg_y = (y < 0);
+            bool neg_x = (x < 0);
+            bool neg_y = (y < 0);
 
             // Change
-			if (neg_x) x = -x;
-			if (neg_y) y = -y;
+            if (neg_x) x = -x;
+            if (neg_y) y = -y;
 
             Intx2<Intx2<T1,false>,S1||S2> res;
             boolib::algo::Karatsuba_multiply((T1*)&x,(T1*)&y,(Intx2<T1,false>*)&res);
 
             // Recover
             if (neg_x) x = -x;
-			if (neg_y) y = -y;
+            if (neg_y) y = -y;
 
             if ((neg_x ^ neg_y) && (!res.isZero()))
                 return -res;
@@ -704,7 +704,7 @@ namespace boolib
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
         inline Intx2<Intx2<T1,false>,S1||((T2(-1))<0)> operator * (const Intx2<T1,S1> & x, const T2 & y)
         {
-			const bool T2_SIGN = (T2(-1)<0);
+            const bool T2_SIGN = (T2(-1)<0);
 
             if (sizeof(x) >= sizeof(y))
                 return x * Intx2<T1,S1||T2_SIGN>(y);
@@ -715,7 +715,7 @@ namespace boolib
         template<typename T1,typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
         inline Intx2<Intx2<T1,false>,S1||((T2(-1))<0)> operator * (const T2 & x, const Intx2<T1,S1> & y)
         {
-			const bool T2_SIGN = (T2(-1)<0);
+            const bool T2_SIGN = (T2(-1)<0);
 
             if (sizeof(x) >= sizeof(y))
                 return x * T2(y);
@@ -724,7 +724,7 @@ namespace boolib
         }
 
         // ================================================================
-		// Operator / ( a , b )
+        // Operator / ( a , b )
         // ================================================================
         
         template<typename T1, bool S1, bool S2>
@@ -733,27 +733,27 @@ namespace boolib
             Intx2<T1,S1> & x = const_cast<Intx2<T1,S1> &>(x_); 
             Intx2<T1,S2> & y = const_cast<Intx2<T1,S2> &>(y_); 
 
-			bool neg_x = (x < 0);
-			bool neg_y = (y < 0);
+            bool neg_x = (x < 0);
+            bool neg_y = (y < 0);
 
             // Change
-			if (neg_x) x = -x;
-			if (neg_y) y = -y;
+            if (neg_x) x = -x;
+            if (neg_y) y = -y;
 
             Intx2<T1,S1||S2> obr = 1;
-			obr <<= (8/2*sizeof(x));
-			for (int i = 0; i < 8*sizeof(x); i++)
+            obr <<= (8/2*sizeof(x));
+            for (int i = 0; i < 8*sizeof(x); i++)
                 obr = ((obr << 1) - y*obr*obr) << 1;
             
-			//Intx2<T1,S1||S2> res = ((x*y) >> (8*sizeof(x)));
+            //Intx2<T1,S1||S2> res = ((x*y) >> (8*sizeof(x)));
             Intx2<Intx2<T1,false>,S1||S2> res = (x*obr);
             res >>= (8*sizeof(x));
 
             // Recover
             if (neg_x) x = -x;
-			if (neg_y) y = -y;
+            if (neg_y) y = -y;
 
-			if (neg_x ^ neg_y) res = -res;
+            if (neg_x ^ neg_y) res = -res;
 
             return res;
         }
@@ -761,7 +761,7 @@ namespace boolib
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
         inline Intx2<T1,S1||((T2(-1))<0)> operator / (const Intx2<T1,S1> & x, const T2 & y)
         {
-			const bool T2_SIGN = (T2(-1)<0);
+            const bool T2_SIGN = (T2(-1)<0);
 
             if (sizeof(x) >= sizeof(y))
                 return x / Intx2<T1,S1||T2_SIGN>(y);
@@ -771,8 +771,8 @@ namespace boolib
 
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
         inline Intx2<T1,S1||((T2(-1))<0)> operator / (const T2 & x, const Intx2<T1,S1> & y)
-		{
-			const bool T2_SIGN = (T2(-1)<0);
+        {
+            const bool T2_SIGN = (T2(-1)<0);
 
             if (sizeof(x) >= sizeof(y))
                 return x / T2(y);
@@ -780,15 +780,15 @@ namespace boolib
                 return Intx2<T1,S1||T2_SIGN>(x) / y;
         }
 
-		// ================================================================
+        // ================================================================
         
         template<typename T1, bool S1>
         std::ostream &
         operator << (std::ostream & os, const Intx2<T1,S1> & value)
         {
-			if (value < 0)
-				os << '-';
-			return os << std::hex << value.a << value.b << std::dec;
+            if (value < 0)
+                os << '-';
+            return os << std::hex << value.a << value.b << std::dec;
         }
 
     }
