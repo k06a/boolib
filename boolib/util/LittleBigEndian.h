@@ -8,9 +8,14 @@ namespace boolib
         
         // Determine Little-Endian or Big-Endian
 
-        #define IS_LITTLE_ENDIAN (0x04030201 == *(int *)"\x01\x02\x03\x04")
-        #define IS_BIG_ENDIAN    (0x04030201 == *(int *)"\x04\x03\x02\x01")
-        #define IS_PDP_ENDIAN    (0x04030201 == *(int *)"\x02\x01\x04\x03")
+        #define CURRENT_BYTE_ORDER       (*(int *)"\x01\x02\x03\x04")
+        #define LITTLE_ENDIAN_BYTE_ORDER 0x04030201
+        #define BIG_ENDIAN_BYTE_ORDER    0x01020304
+        #define PDP_ENDIAN_BYTE_ORDER    0x02010403
+
+        #define IS_LITTLE_ENDIAN (CURRENT_BYTE_ORDER == LITTLE_ENDIAN_BYTE_ORDER)
+        #define IS_BIG_ENDIAN    (CURRENT_BYTE_ORDER == BIG_ENDIAN_BYTE_ORDER)
+        #define IS_PDP_ENDIAN    (CURRENT_BYTE_ORDER == PDP_ENDIAN_BYTE_ORDER)
 
         // Little-Endian template
 
