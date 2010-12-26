@@ -3,8 +3,16 @@
 
 #include <iostream>
 #include "algo.h"
-#include "LittleBigEndian.h"
+#include "util/LittleBigEndian.h"
 
+#if defined(__LITTLE_ENDIAN__)
+static const int CurrentByteOrder = LITTLE_ENDIAN_BYTE_ORDER;
+#elif defined(__BIG_ENDIAN__)
+static const int CurrentByteOrder = BIG_ENDIAN_BYTE_ORDER;
+#else
+#pragma message("Neither of __LITTLE_ENDIAN__ or __BIG_ENDIAN__ byte orders are not defined! Default order - __LITTLE_ENDIAN__.")
+static const int CurrentByteOrder = LITTLE_ENDIAN_BYTE_ORDER;
+#endif
 
 namespace boolib
 {
@@ -48,23 +56,44 @@ namespace boolib
         typedef Intx2<u16384,true> i32768;  // 4096 bytes
         typedef Intx2<u32768,true> i65536;  // 8192 bytes
 
+        // Templates for determite bigger type
+
+        template <typename T, typename U, bool flag>
+        struct Select;
+        template <typename T, typename U>
+        struct Select<T, U, true>  { typedef typename T Result; };
+        template <typename T, typename U>
+        struct Select<T, U, false> { typedef typename U Result; };
+
+        template <typename T, typename U>
+        struct IsBigger {
+	        enum { value = sizeof(T) > sizeof(U) };
+        };
+ 
+        template <typename T, typename U>
+        struct BiggerTypeSelector {
+	        typedef typename Select<T,U,IsBigger<T, U>::value>::Result Result;
+        };
+
         //
         
-        template<typename TCHILD, bool S>
+        template<typename TCHILD, typename T, bool S, int BYTE_ORDER = CurrentByteOrder>
         class Intx2_base;
 
         #pragma pack(push,1)
         template<typename T, bool S = true>
-        class Intx2 : public Intx2_base<Intx2<T,S>,S>
+        class Intx2 : public Intx2_base<Intx2<T,S>,T,S>
         {
-            T b;
-            T a;
+            //T b;
+            //T a;
 
         public: // Constructing + Destructing
 
-            Intx2() : b(0), a(0)
+            Intx2(T low = 0, T hi = 0)
+                : Intx2_base(low,hi)
             {
             }
+
             /*
             Intx2(const signed __int64 value)
                 : b((T)(value))
@@ -116,13 +145,12 @@ namespace boolib
             */
 
             Intx2(const Intx2<T,S> & value)
-                : b(value.b), a(value.a)
+                : Intx2_base(value.b,value.a)
             {
             }
             
             template<typename T2>//, bool S2> // Intx2<T2,S2>
             Intx2(const T2 & value)
-                : b(0), a(0)
             {
                 *this = value;
             }
@@ -276,7 +304,7 @@ namespace boolib
             Intx2<T,S> operator << (const int value) const
             {
                 Intx2<T,S> res;
-                res.b = b << value;
+                res.b = (b << value);
                 res.a = (a << value) | (b >> (8*sizeof(b)-value));
                 return res;
             }
@@ -396,6 +424,7 @@ namespace boolib
                 *this = *this + value;
                 return *this;
             }
+
             /*
             template<typename T1>
             Intx2<T,S> & operator -= (const T1 & value)
@@ -417,6 +446,8 @@ namespace boolib
             // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend Intx2<T1,S1||S2> operator + (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
+            template<typename T1, typename T2, bool S1, bool S2>
+            friend Intx2<typename BiggerTypeSelector<T1,T2>::Result,S1||S2> operator + (const Intx2<T1,S1> & x, const Intx2<T2,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
             friend Intx2<T1,S1||((T2(-1))<0)> operator + (const Intx2<T1,S1> & x, const T2 & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -426,6 +457,8 @@ namespace boolib
             // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend Intx2<T1,S1||S2> operator - (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
+            template<typename T1, typename T2, bool S1, bool S2> // const bool T2_SIGN = ((T2(-1))<0)
+            friend Intx2<typename BiggerTypeSelector<T1,T2>::Result,S1||S2> operator - (const Intx2<T1,S1> & x, const Intx2<T2,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
             friend Intx2<T1,S1||((T2(-1))<0)> operator - (const Intx2<T1,S1> & x, const T2 & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -435,13 +468,16 @@ namespace boolib
             // 2,3. Different types
             template<typename T1, bool S1, bool S2>
             friend Intx2<Intx2<T1,false>,S1||S2> operator * (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
+            template<typename T1, typename T2, bool S1, bool S2> // const bool T2_SIGN = ((T2(-1))<0)
+            friend Intx2<Intx2<typename BiggerTypeSelector<T1,T2>::Result,false>,S1||S2> operator * (const Intx2<T1,S1> & x, const Intx2<T2,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
             friend Intx2<Intx2<T1,false>,S1||((T2(-1))<0)> operator * (const Intx2<T1,S1> & x, const T2 & y);
             template<typename T1,typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
             friend Intx2<Intx2<T1,false>,S1||((T2(-1))<0)> operator * (const T2 & x, const Intx2<T1,S1> & y);
 
             // 1. The same type with may be different signs
-            // 2,3. Different types
+            template<typename T1, bool S1, bool S2>
+            friend Intx2<Intx2<T1,false>,S1||S2> operator / (const Intx2<Intx2<T1,false>,S1> & x, const Intx2<T1,S2> & y);
             template<typename T1, bool S1, bool S2>
             friend Intx2<T1,S1||S2> operator / (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y);
             template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -451,40 +487,92 @@ namespace boolib
 
         public: // Stream operators
 
+            /*
             template<typename T1, bool S1>
             friend std::ostream &
             operator << (std::ostream & os, const Intx2<T1,S1> & value);
+            */
         };
         #pragma pack(pop)
 
         // ----------------------------------------------------------------
 
-        template<typename TCHILD>
-        class Intx2_base<TCHILD,true>
+        template<typename TCHILD, typename T>
+        class Intx2_base<TCHILD,T,true,LITTLE_ENDIAN_BYTE_ORDER>
         {
-            #define TO_STRING(arg) #arg
             #define CHILD ((TCHILD*)this)
+
+        protected:
+            T b;
+            T a;
 
         public: // Signed type tools
             
+            Intx2_base(const T & b = 0, const T & a = 0)
+                : b(b), a(a)
+            {
+            }
 
             #undef CHILD
-            #undef TO_STRING
+        };
+
+        template<typename TCHILD, typename T>
+        class Intx2_base<TCHILD,T,true,BIG_ENDIAN_BYTE_ORDER>
+        {
+            #define CHILD ((TCHILD*)this)
+            
+        protected:
+            T a;
+            T b;
+
+        public: // Signed type tools
+            
+            Intx2_base(const T & b = 0, const T & a = 0)
+                : a(a), b(b)
+            {
+            }
+
+            #undef CHILD
         };
 
         // ----------------------------------------------------------------
 
-        template<typename TCHILD>
-        class Intx2_base<TCHILD,false>
+        template<typename TCHILD, typename T>
+        class Intx2_base<TCHILD,T,false,LITTLE_ENDIAN_BYTE_ORDER>
         {
-            #define TO_STRING(arg) #arg
             #define CHILD ((TCHILD*)this)
+            
+        protected:
+            T b;
+            T a;
 
         public: // Unsigned type tools
             
+            Intx2_base(const T & b = 0, const T & a = 0)
+                : b(b), a(a)
+            {
+            }
 
             #undef CHILD
-            #undef TO_STRING
+        };
+
+        template<typename TCHILD, typename T>
+        class Intx2_base<TCHILD,T,false,BIG_ENDIAN_BYTE_ORDER>
+        {
+            #define CHILD ((TCHILD*)this)
+            
+        protected:
+            T a;
+            T b;
+
+        public: // Unsigned type tools
+            
+            Intx2_base(const T & b = 0, const T & a = 0)
+                : a(a), b(b)
+            {
+            }
+
+            #undef CHILD
         };
 
         // ================================================================
@@ -598,6 +686,73 @@ namespace boolib
         }
 
         // ================================================================
+        // Operator | ( a , b )
+        // ================================================================
+
+        // 1. The same type with may be different signs
+        // 2,3. Different types
+        template<typename T1, bool S1, bool S2>
+        inline Intx2<T1,S1||S2> operator | (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y)
+        {
+            return Intx2<T1,S1||S2>(x.b | y.b, x.a | y.a);
+        }
+
+        template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
+        inline Intx2<T1,S1||((T2(-1))<0)> operator | (const Intx2<T1,S1> & x, const T2 & y)
+        {
+        }
+
+        template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
+        inline Intx2<T1,S1||((T2(-1))<0)> operator | (const T2 & x, const Intx2<T1,S1> & y)
+        {
+        }
+
+        // ================================================================
+        // Operator & ( a , b )
+        // ================================================================
+
+        // 1. The same type with may be different signs
+        // 2,3. Different types
+        template<typename T1, bool S1, bool S2>
+        inline Intx2<T1,S1||S2> operator & (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y)
+        {
+            return Intx2<T1,S1||S2>(x.b & y.b, x.a & y.a);
+        }
+
+        template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
+        inline Intx2<T1,S1||((T2(-1))<0)> operator & (const Intx2<T1,S1> & x, const T2 & y)
+        {
+        }
+
+        template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
+        inline Intx2<T1,S1||((T2(-1))<0)> operator & (const T2 & x, const Intx2<T1,S1> & y)
+        {
+        }
+
+        // ================================================================
+        // Operator ^ ( a , b )
+        // ================================================================
+
+        // 1. The same type with may be different signs
+        // 2,3. Different types
+        template<typename T1, bool S1, bool S2>
+        inline Intx2<T1,S1||S2> operator ^ (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y)
+        {
+            return Intx2<T1,S1||S2>(x.b ^ y.b, x.a ^ y.a);
+        }
+
+        template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
+        inline Intx2<T1,S1||((T2(-1))<0)> operator ^ (const Intx2<T1,S1> & x, const T2 & y)
+        {
+        }
+
+        template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
+        inline Intx2<T1,S1||((T2(-1))<0)> operator ^ (const T2 & x, const Intx2<T1,S1> & y)
+        {
+        }
+
+
+        // ================================================================
         // Operator + ( a , b )
         // ================================================================
         
@@ -610,6 +765,15 @@ namespace boolib
             if (res.b < x.b)
                 res.a++;
             return res;
+        }
+
+        template<typename T1, typename T2, bool S1, bool S2> // const bool T2_SIGN = ((T2(-1))<0)
+        inline Intx2<typename BiggerTypeSelector<T1,T2>::Result,S1||S2> operator + (const Intx2<T1,S1> & x, const Intx2<T2,S2> & y)
+        {
+            if (sizeof(x) >= sizeof(y))
+                return x + Intx2<T1,S1||S2>(y);
+            else
+                return Intx2<T2,S1||S2>(x) + y;
         }
         
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -644,9 +808,18 @@ namespace boolib
             Intx2<T1,S1||S2> res;
             res.b = x.b - y.b;
             res.a = x.a - y.a;
-            if (res.b > x.b)
+            if (x.b < res.b)
                 res.a--;
             return res;
+        }
+
+        template<typename T1, typename T2, bool S1, bool S2> // const bool T2_SIGN = ((T2(-1))<0)
+        inline Intx2<typename BiggerTypeSelector<T1,T2>::Result,S1||S2> operator - (const Intx2<T1,S1> & x, const Intx2<T2,S2> & y)
+        {
+            if (sizeof(x) >= sizeof(y))
+                return x - Intx2<T1,S1||S2>(y);
+            else
+                return Intx2<T2,S1||S2>(x) - y;
         }
 
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
@@ -701,6 +874,15 @@ namespace boolib
             return res;
         }
 
+        template<typename T1, typename T2, bool S1, bool S2> // const bool T2_SIGN = ((T2(-1))<0)
+        inline Intx2<Intx2<typename BiggerTypeSelector<T1,T2>::Result,false>,S1||S2> operator * (const Intx2<T1,S1> & x, const Intx2<T2,S2> & y)
+        {
+            if (sizeof(x) >= sizeof(y))
+                return x + Intx2<Intx2<T1,false>,S1||S2>(y);
+            else
+                return Intx2<Intx2<T2,false>,S1||S2>(x) + y;
+        }
+
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
         inline Intx2<Intx2<T1,false>,S1||((T2(-1))<0)> operator * (const Intx2<T1,S1> & x, const T2 & y)
         {
@@ -728,9 +910,9 @@ namespace boolib
         // ================================================================
         
         template<typename T1, bool S1, bool S2>
-        inline Intx2<T1,S1||S2> operator / (const Intx2<T1,S1> & x_, const Intx2<T1,S2> & y_)
+        inline Intx2<Intx2<T1,false>,S1||S2> operator / (const Intx2<Intx2<T1,false>,S1> & x_, const Intx2<T1,S2> & y_)
         {
-            Intx2<T1,S1> & x = const_cast<Intx2<T1,S1> &>(x_); 
+            Intx2<Intx2<T1,false>,S1> & x = const_cast<Intx2<Intx2<T1,false>,S1> &>(x_); 
             Intx2<T1,S2> & y = const_cast<Intx2<T1,S2> &>(y_); 
 
             bool neg_x = (x < 0);
@@ -740,15 +922,14 @@ namespace boolib
             if (neg_x) x = -x;
             if (neg_y) y = -y;
 
-            Intx2<T1,S1||S2> obr = 1;
-            obr <<= (8/2*sizeof(x));
-            for (int i = 0; i < 8*sizeof(x); i++)
-                obr = ((obr << 1) - y*obr*obr) << 1;
+            Intx2<Intx2<T1,false>,S1||S2> res;
+            if (x.a != 0)
+            {
+                res += x.a / y;
+                res <<= 8*sizeof(res.a);
+            }
+            res += x.b / y;
             
-            //Intx2<T1,S1||S2> res = ((x*y) >> (8*sizeof(x)));
-            Intx2<Intx2<T1,false>,S1||S2> res = (x*obr);
-            res >>= (8*sizeof(x));
-
             // Recover
             if (neg_x) x = -x;
             if (neg_y) y = -y;
@@ -757,6 +938,13 @@ namespace boolib
 
             return res;
         }
+
+        template<typename T1, bool S1, bool S2>
+        inline Intx2<T1,S1||S2> operator / (const Intx2<T1,S1> & x, const Intx2<T1,S2> & y)
+        {
+            return Intx2<Intx2<T1,false>,S1>(x) / y;
+        }
+            
 
         template<typename T1, typename T2, bool S1> // const bool T2_SIGN = ((T2(-1))<0)
         inline Intx2<T1,S1||((T2(-1))<0)> operator / (const Intx2<T1,S1> & x, const T2 & y)
@@ -781,7 +969,7 @@ namespace boolib
         }
 
         // ================================================================
-        
+        /*
         template<typename T1, bool S1>
         std::ostream &
         operator << (std::ostream & os, const Intx2<T1,S1> & value)
@@ -790,7 +978,7 @@ namespace boolib
                 os << '-';
             return os << std::hex << value.a << value.b << std::dec;
         }
-
+        */
     }
     // namespace util
 }

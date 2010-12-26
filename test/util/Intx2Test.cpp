@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "gtest/gtest.h"
-#include "util.h"
+#include "util/Intx2.h"
 
 //#define FULL_RANGE
 
@@ -77,7 +77,8 @@ TEST(Intx2_i32, Div_1M_Times)
     for (short a = RANGE_FROM; a < RANGE_TO; a++)
     for (short b = RANGE_FROM; b < RANGE_TO; b++)
     {
-        if (b == 0) continue;
+        if (b == 0)
+            continue;
 
         int div_ab = a/b;
         
@@ -93,7 +94,9 @@ TEST(Intx2_i32, Div_1M_Times)
         EXPECT_EQ(div_ab, div_xy);
     }
 }
+*/
 
+/*
 TEST(Intx2_i32, Bitwise_Operators)
 {
     using boolib::util::i16;
